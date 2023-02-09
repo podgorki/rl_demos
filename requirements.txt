@@ -3,7 +3,7 @@ box2d
 box2d-py
 box2d-kengz
 gym==0.23.1
-ffmprg
+ffmpg
 imageio-ffmpeg
 numpy>=1.21.6
 pyyaml
