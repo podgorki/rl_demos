@@ -19,7 +19,7 @@ def main():
     torch.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
-    with open('config/config_ppo_discrete.yaml', 'r') as f:
+    with open('rl_demos/demos/config/config_ppo_discrete.yaml', 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     ckpt_root = Path.cwd() / 'checkpoints'

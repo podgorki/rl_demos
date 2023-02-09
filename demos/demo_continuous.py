@@ -1,5 +1,6 @@
 import torch
 import torch.optim as optim
+import torch.nn as nn
 from pathlib import Path
 import yaml
 import gym
