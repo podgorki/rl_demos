@@ -18,5 +18,5 @@ vf_coef: 0.5
 max_grad_norm: 0.5
 
 logging: False
-gym_id: MountainCarContinuous-v0
+gym_id: BipedalWalker-v3
 target_kl: None
