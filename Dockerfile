@@ -13,4 +13,6 @@ RUN git clone --single-branch --branch add-dockerfile https://github.com/podgork
 # install the requirements
 RUN pip install -r rl_demos/requirements.txt
 
-CMD ["python", "rl_demos/demos/demo_discrete.py"]
+WORKDIR  "rl_demos/demos"
+
+CMD ["python", "demo_discrete.py"]

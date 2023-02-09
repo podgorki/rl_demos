@@ -12,7 +12,7 @@ from tqdm import tqdm
 import time
 
 
-def main():
+def run_continuous(args):
     # TRY NOT TO MODIFY: seeding
     seed = 0
     random.seed(seed)
@@ -20,7 +20,7 @@ def main():
     torch.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
-    with open(str(Path().cwd() / 'rl_demos/demos/config/config_ppo_continuous.yaml'), 'r') as f:
+    with open(str(Path().cwd() / 'config/config_ppo_continuous.yaml'), 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     ckpt_root = Path.cwd() / 'checkpoints'
@@ -137,7 +137,3 @@ def main():
         y_pred, y_true = b_values.cpu().numpy(), b_returns.cpu().numpy()
         var_y = np.var(y_true)
         explained_var = np.nan if var_y == 0 else 1 - np.var(y_true - y_pred) / var_y
-
-
-if __name__ == "__main__":
-    main()

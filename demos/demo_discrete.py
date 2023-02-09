@@ -1,3 +1,4 @@
+import argparse
 import gym
 import yaml
 import time
@@ -12,14 +13,14 @@ from agents import PPODiscreteAgent
 from common.utils import make_discrete_env, make_buffers
 
 
-def main():
+def run_discrete(args):
     seed = 0
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
-    with open('rl_demos/demos/config/config_ppo_discrete.yaml', 'r') as f:
+    with open('config/config_ppo_discrete.yaml', 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     ckpt_root = Path.cwd() / 'checkpoints'
@@ -139,7 +140,3 @@ def main():
         y_pred, y_true = b_values.cpu().numpy(), b_returns.cpu().numpy()
         var_y = np.var(y_true)
         explained_var = np.nan if var_y == 0 else 1 - np.var(y_true - y_pred) / var_y  # used in logging
-
-
-if __name__ == "__main__":
-    main()
