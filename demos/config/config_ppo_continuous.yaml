@@ -1,0 +1,22 @@
+lr: 2.54e-4
+num_envs: 10
+num_steps: 2048 # how much data to collect in a rollout. each policy rollout is num_envs*num_steps = 4*128=512
+batch_size: 32 # num_envs * num_steps = 4*128=512
+total_timesteps: 2000000
+
+gae: True
+gamma: 0.99
+gae_lambda: 0.95
+
+num_mini_batch: 4
+minibatch_size: 32 # batch_size // num_mini_batch
+update_epochs: 4
+
+clip_coef: 0.2
+ent_coef: 0.0
+vf_coef: 0.5
+max_grad_norm: 0.5
+
+logging: False
+gym_id: Ant-v3 #BipedalWalker-v3
+target_kl: None
