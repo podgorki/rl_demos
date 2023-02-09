@@ -20,8 +20,10 @@ def run_continuous(args):
     torch.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
-    with open(str(Path().cwd() / 'config/config_ppo_continuous.yaml'), 'r') as f:
+    with open(str(Path().cwd() / 'config/ppo_continuous.yaml'), 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
+
+    config["gym_id"] = args.gym_env
 
     ckpt_root = Path.cwd() / 'checkpoints'
     if not ckpt_root.exists():

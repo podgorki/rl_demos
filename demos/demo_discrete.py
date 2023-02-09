@@ -20,8 +20,10 @@ def run_discrete(args):
     torch.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
-    with open('config/config_ppo_discrete.yaml', 'r') as f:
+    with open('config/ppo_discrete.yaml', 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
+
+    config["gym_id"] = args.gym_env
 
     ckpt_root = Path.cwd() / 'checkpoints'
     if not ckpt_root.exists():
