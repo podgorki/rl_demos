@@ -1,5 +1,5 @@
 pygame==2.1.0
-box2d
+Box2D==2.3.3
 box2d-py
 box2d-kengz
 gym==0.23.1

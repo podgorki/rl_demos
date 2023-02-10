@@ -16,4 +16,4 @@ services:
       - |
         pwd 
         ls 
-        python rl_demo.py --gym_env CartPole-v1 --demo_type discrete
+        python rl_demo.py --gym_env BipedalWalker-v3 --demo_type continuous
