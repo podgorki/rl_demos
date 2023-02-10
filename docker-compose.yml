@@ -16,4 +16,4 @@ services:
       - |
         pwd 
         ls 
-        python rl_demo.py --gym_env BipedalWalker-v3 --demo_type continuous
+        python rl_demo.py --gym_env MountainCar-v0 --demo_type discrete
