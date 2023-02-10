@@ -16,7 +16,7 @@ RUN python setup.py build
 RUN python setup.py install
 
 # get the repo
-RUN git clone --single-branch --branch add-args-for-demos https://github.com/podgorki/rl_demos.git
+RUN git clone --single-branch --branch main https://github.com/podgorki/rl_demos.git
 
 # install the requirements
 RUN pip install -r rl_demos/requirements.txt
