@@ -8,11 +8,9 @@ RUN apt-get update -y && \
     apt-get install -y build-essential python-dev swig python-pygame git
 
 # get the repo
-RUN git clone --single-branch --branch add-dockerfile https://github.com/podgorki/rl_demos.git
+RUN git clone --single-branch --branch add-args-for-demos https://github.com/podgorki/rl_demos.git
 
 # install the requirements
 RUN pip install -r rl_demos/requirements.txt
 
 WORKDIR  "rl_demos/demos"
-
-CMD ["python", "demo_discrete.py"]

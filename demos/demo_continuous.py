@@ -34,9 +34,13 @@ def run_continuous(args):
         range(config["num_envs"])])
 
     def on_press(key):
-        if key.char == 'q':
-            print('Quitting!')
-            envs.close_extras()
+        try:
+            if key.char == 'q':
+                print('Quitting!')
+                envs.close_extras()
+        except Exception:
+            pass
+
 
     listener = keyboard.Listener(on_press=on_press)
     listener.start()

@@ -9,3 +9,11 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     network_mode: host
+#    working_dir: /rl_demos/demos
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pwd 
+        ls 
+        python rl_demo.py --gym_env CartPole-v1 --demo_type discrete

@@ -6,3 +6,4 @@ gym==0.23.1
 numpy>=1.21.6
 pyyaml
 moviepy
+pynput
