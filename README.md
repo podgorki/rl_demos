@@ -35,6 +35,9 @@ To run:
 2. Build the dockerfile
 3. run `docker-compose up`
 
+Different environments can be run by changing the command args in the docker-compose.yml
+
+Note: To kill the demo hit 'q'
 
 # Environments
 
