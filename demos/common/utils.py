@@ -9,6 +9,7 @@ def layer_init(layer, std=np.sqrt(2), bias_const=0.0):
     nn.init.constant_(layer.bias, bias_const)
     return layer
 
+
 def make_discrete_env(gym_id, seed, idx, run_name):
     def thunk():
         env = gym.make(gym_id)

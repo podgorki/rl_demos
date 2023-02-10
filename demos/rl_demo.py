@@ -1,6 +1,8 @@
+import pygame
 from argparse import ArgumentParser
 from demo_discrete import run_discrete
 from demo_continuous import run_continuous
+
 
 SUPPORTED_DISCRETE = ["Acrobot-v1", "CartPole-v1", "MountainCar-v0"]
 SUPPORTED_CONTINUOUS = ["BipedalWalker-v3", "LunarLanderContinuous-v2", "MountainCarContinuous-v0"]
@@ -21,13 +23,18 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
     print(f"Running with args: {args}!")
-    if args.gym_env not in SUPPORTED_DISCRETE: #or args.gym_env not in SUPPORTED_CONTINUOUS:
-        raise Exception(f'{args.gym_env} is not a supported gym environment.\n'
-                        f'Try: {SUPPORTED_DISCRETE} for discrete\n'
-                        f'or for continuous {SUPPORTED_CONTINUOUS}')
     if args.demo_type == 'discrete':
-        run_discrete(args)
+        if args.gym_env in SUPPORTED_DISCRETE:
+            run_discrete(args)
+        else:
+            raise Exception(f'{args.gym_env} is not a supported gym environment.\n'
+                            f'Try: {SUPPORTED_DISCRETE}')
     elif args.demo_type == 'continuous':
-        run_continuous(args)
+        if args.gym_env in SUPPORTED_CONTINUOUS:
+            run_continuous(args)
+        else:
+            raise Exception(f'{args.gym_env} is not a supported gym environment.\n'
+                            f'Try: {SUPPORTED_CONTINUOUS}')
     else:
         raise Exception(f'Demo type: {args.demo_type} does not exists. Try \'discrete\' or \'continuous\'')
+

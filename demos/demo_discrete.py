@@ -1,4 +1,3 @@
-import argparse
 import gym
 import yaml
 import time
@@ -11,6 +10,7 @@ from tqdm import tqdm
 from pathlib import Path
 from agents import PPODiscreteAgent
 from common.utils import make_discrete_env, make_buffers
+from pynput import keyboard
 
 
 def run_discrete(args):
@@ -31,7 +31,16 @@ def run_discrete(args):
 
     run_name = f"{config['gym_id']}___{int(time.time())}"
     envs = gym.vector.SyncVectorEnv([
-        make_discrete_env(gym_id=config["gym_id"], seed=0, idx=i, run_name=run_name) for i in range(config["num_envs"])])
+        make_discrete_env(gym_id=config["gym_id"], seed=0, idx=i, run_name=run_name) for i in
+        range(config["num_envs"])])
+
+    def on_press(key):
+        if key.char == 'q':
+            print('Quitting!')
+            envs.close_extras()
+
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
     agent = PPODiscreteAgent(envs)
     observation = envs.reset()
 
@@ -43,12 +52,10 @@ def run_discrete(args):
     global_step = 0
 
     for update in tqdm(range(1, num_updates + 1), desc='Update...'):
-
         # anneal the lr
         frac = 1.0 - (update - 1.0) / num_updates
         lrnow = frac * config['lr']
         optimizer.param_groups[0]['lr'] = lrnow
-
         for step in tqdm(range(0, config["num_steps"]), desc=f'Stepping...{global_step}'):
             envs.envs[0].render(mode="human")
             time.sleep(0.03)
@@ -65,7 +72,6 @@ def run_discrete(args):
             next_obs, reward, done, info = envs.step(action.cpu().numpy())
             rewards[step] = torch.tensor(reward).to(device).view(-1)
             next_obs, next_done = torch.Tensor(next_obs).to(device), torch.Tensor(done).to(device)
-
 
         # compute GAE
         with torch.no_grad():

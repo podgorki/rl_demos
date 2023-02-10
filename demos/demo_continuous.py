@@ -1,3 +1,4 @@
+from pynput import keyboard
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -13,7 +14,6 @@ import time
 
 
 def run_continuous(args):
-    # TRY NOT TO MODIFY: seeding
     seed = 0
     random.seed(seed)
     np.random.seed(seed)
@@ -32,6 +32,15 @@ def run_continuous(args):
     envs = gym.vector.SyncVectorEnv([
         make_continuous_env(gym_id=config["gym_id"], seed=0, idx=i, run_name=run_name) for i in
         range(config["num_envs"])])
+
+    def on_press(key):
+        if key.char == 'q':
+            print('Quitting!')
+            envs.close_extras()
+
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
+
     agent = PPOContinuousAgent(envs)
     observation = envs.reset()
 
@@ -41,7 +50,6 @@ def run_continuous(args):
     obs, actions, logprobs, rewards, dones, values, next_obs, next_done = make_buffers(envs, config, device)
     num_updates = config["total_timesteps"] // config["batch_size"]
     global_step = 0
-
     for update in tqdm(range(1, num_updates + 1), desc='Update...'):
         frac = 1.0 - (update - 1.0) / num_updates
         lrnow = frac * config['lr']
